@@ -1,0 +1,54 @@
+@import 'styles/base.scss';
+
+.connectIndicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  .outterIndicator {
+    @keyframes indicatorScale {
+      0%,
+      100% {
+        transform: scale(0.8);
+        opacity: 0.2;
+      }
+      50% {
+        transform: scale(0.9);
+        opacity: 0.3;
+      }
+    }
+
+    position: absolute;
+    width: 1.4rem;
+    height: 1.4rem;
+    border-radius: 100%;
+    animation: 1.6s ease-in-out 0s infinite normal none running indicatorScale;
+  }
+
+  .innerIndicator {
+    position: absolute;
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 100%;
+  }
+  .Mainnet {
+    background: $color-primary500;
+  }
+
+  .Alphanet {
+    background: #ff0062 !important;
+  }
+
+  .Testnet,
+  .Dev {
+    background: #ff8500 !important;
+  }
+}
+
+.pill {
+  cursor: pointer;
+  @include lg {
+    min-width: 13.1rem;
+  }
+}

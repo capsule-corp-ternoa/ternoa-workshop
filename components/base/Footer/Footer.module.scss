@@ -1,0 +1,90 @@
+@import 'styles/base.scss';
+
+.root {
+  display: none;
+
+  @include lg {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 3rem;
+  border-bottom: 0.1rem solid $color-neutral100;
+
+  .socials {
+    > * {
+      &:not(&:first-child) {
+        margin-left: 2.4rem;
+      }
+    }
+
+    .socialItem {
+      width: 2.4rem;
+      cursor: pointer;
+      fill: $color-contrast;
+    }
+  }
+
+  .link {
+    display: flex;
+    align-items: center;
+    color: $color-contrast;
+    font-family: $font-bold;
+    font-size: 1.6rem;
+    cursor: pointer;
+
+    > * {
+      margin: 0.8rem;
+    }
+  }
+}
+
+.bottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 3rem;
+  font-size: 1.2rem;
+
+  .credentials {
+    .bold {
+      font-size: 1.2rem;
+      font-family: $font-bold;
+      > a {
+        font-family: $font-bold;
+      }
+    }
+    .gradient {
+      background: $color-primary-gradient500;
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+  .linksWrapper {
+    display: flex;
+    align-items: center;
+
+    .footerLink {
+      color: $color-contrast;
+      font-size: 1.2rem;
+      font-family: $font-bold;
+      &:hover {
+        color: $color-neutral100;
+      }
+    }
+
+    > * {
+      &:not(&:first-child) {
+        margin-left: 2.4rem;
+      }
+    }
+  }
+}

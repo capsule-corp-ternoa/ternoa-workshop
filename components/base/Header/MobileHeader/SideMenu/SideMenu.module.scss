@@ -1,0 +1,48 @@
+@import 'styles/base.scss';
+
+.root {
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 100%;
+  background: $color-invertedContrast;
+  z-index: 1000;
+  transition: transform 0.5s ease;
+
+  &.expanded {
+    transform: translateX(-100%);
+  }
+
+  @include lg {
+    display: none;
+  }
+}
+
+.radialGradientBg {
+  height: 100%;
+  width: 100%;
+  background: $color-radialGradient;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.links,
+.provider {
+  > * {
+    &:not(:first-child) {
+      margin-top: 1.2rem;
+    }
+  }
+}
+
+.provider {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.network {
+  margin: 1.2rem auto;
+}

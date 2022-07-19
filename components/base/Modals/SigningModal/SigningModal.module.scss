@@ -1,0 +1,87 @@
+@import 'styles/base.scss';
+
+.root {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.method {
+  font-family: $font-bold;
+  font-size: 3.2rem;
+}
+
+.hash {
+  display: flex;
+  align-items: center;
+  font-family: $font-bold;
+  font-size: 1.6rem;
+  margin-top: 0.8rem;
+
+  .txHash {
+    margin-left: 0.8rem;
+  }
+}
+
+.body {
+  font-size: 1.6rem;
+  margin-top: 4rem;
+  text-align: center;
+}
+
+.optionsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 3.2rem;
+
+  @include xs {
+    flex-direction: row;
+  }
+
+  .polkaExtOption {
+    margin-top: 3.2rem;
+    @include xs {
+      margin-top: 0;
+      margin-left: 11.2rem;
+    }
+
+    .connectedPolkaExt {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      > * {
+        &:not(&:first-child) {
+          margin-top: 1.6rem;
+        }
+      }
+    }
+  }
+}
+
+.ternoaWalletOption {
+  position: relative;
+
+  .soonContainer {
+    position: absolute;
+    background: #ffffff88;
+    height: 180px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+
+    .soon {
+      background: $color-neutral500;
+      border-radius: 0.8rem;
+      font-size: 1.6rem;
+      font-family: $font-bold;
+      padding: 1.6rem;
+    }
+  }
+}
