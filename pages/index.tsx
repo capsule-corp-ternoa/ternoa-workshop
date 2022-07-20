@@ -13,7 +13,7 @@ import { nftsBatchTransferHex } from 'helpers/ternoa'
 import { INFTData, INFTMetadata } from 'interfaces/nft'
 import { IPFS_GATEWAY } from 'helpers/ipfs'
 
-const ADDRESSES: string[] = ['5DfX41FBRpdMC2C229XcAUdTQDj7bBvvtJTSNYrwmcwnwRTD']
+const ADDRESSES: string[] = ['5Gsj8X3dGSeCNythZ7yGGYcz2QDCtAVF7x6zDf8pj2mTeakH']
 const defaultNFTData = {
   description: '',
   file: null,
