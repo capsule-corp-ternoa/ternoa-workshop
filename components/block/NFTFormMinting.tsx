@@ -140,7 +140,7 @@ const NFTFormMinting = ({ signableCallback }: Props) => {
             {formik.isSubmitting ? (
               <>
                 <div style={{ paddingRight: '1rem' }}>Uploading </div>
-                <Loader className="loader" size="small" useLottie />
+                <Loader className="loader" size="small" />
               </>
             ) : (
               'Submit'
