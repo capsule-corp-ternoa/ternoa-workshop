@@ -116,4 +116,15 @@ button {
   @include lg {
     padding: 3.2rem 4rem;
   }
+  &-transferBtn {
+    margin: 1.5rem auto;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.loader {
+  display: flex;
+  align-items: center;
+  margin: auto;
 }

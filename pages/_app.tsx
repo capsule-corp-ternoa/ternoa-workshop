@@ -8,9 +8,11 @@ import { appTheme } from 'theme'
 
 import Layout from 'components/base/Layout'
 import 'styles/main.scss'
+import Loader from 'components/ui/Loader'
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [isSDKInitialized, setIsSDKInitialized] = useState(false)
+  const [isSDKInitialized, setIsSDKInitialized] = useState<boolean>(false)
+
   useEffect(() => {
     let shouldUpdate = true
     const initSDK = async () => {
@@ -29,7 +31,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [])
 
   if (!isSDKInitialized) {
-    return null
+    return <Loader className="loader" size="medium" useLottie />
   }
 
   return (
