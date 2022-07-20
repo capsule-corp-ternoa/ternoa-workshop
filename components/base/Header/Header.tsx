@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { useAppSelector } from 'redux/hooks'
 import dynamic from 'next/dynamic'
@@ -22,11 +22,29 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ children, projectName, ternoaLogo, links }) => {
   const [isPolkadotModalOpen, setIsPolkadotModalOpen] = useState<boolean>(false)
+  const [navBackground, setNavBackground] = useState<any>('')
+  const navRef = useRef()
+  navRef.current = navBackground
   const { user } = useAppSelector((state) => state.user)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const show = window.scrollY > 30
+      if (show) {
+        setNavBackground('headerScrolled')
+      } else {
+        setNavBackground('')
+      }
+    }
+    document.addEventListener('scroll', handleScroll)
+    return () => {
+      document.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   return (
     <>
-      <nav className={`wrapper ${styles.nav}`}>
+      <nav className={`wrapper ${styles.nav} ${styles[navBackground]}`}>
         <Link href="/">
           <a className={styles.logo} title={projectName}>
             {ternoaLogo}

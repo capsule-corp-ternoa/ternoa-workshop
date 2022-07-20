@@ -1,0 +1,60 @@
+@import 'styles/base.scss';
+.header {
+  text-align: center;
+  color: $color-contrast;
+  font-family: $font-bold;
+  font-size: 2rem;
+
+  @include xl {
+    font-size: 2.4rem;
+  }
+}
+
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 50vh;
+
+  .title {
+    color: $color-contrast;
+    font-family: $font-bold;
+    font-size: 1.6rem;
+
+    @include xl {
+      font-size: 2rem;
+    }
+  }
+
+  .uploader {
+    label {
+      margin: 1.2rem auto;
+      min-width: 250px;
+    }
+    @include md {
+      min-width: 650px;
+    }
+  }
+
+  .inputWrapper {
+    margin: 1.2rem 0;
+    & h2 {
+      font-family: $font-bold;
+    }
+    .description {
+      color: $color-contrast;
+      font-size: 1.2rem;
+
+      @include xl {
+        font-size: 1.6rem;
+      }
+    }
+    > * {
+      &:not(&:first-child) {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+  .submitBtn {
+    margin: 0 auto;
+  }
+}

@@ -10,6 +10,12 @@
   }
 }
 
+.headerScrolled {
+  background-color: $color-invertedContrast;
+  backdrop-filter: saturate(180%) blur(20px);
+  transition: 0.2s ease-in-out;
+}
+
 .logo {
   display: flex;
   align-items: center;

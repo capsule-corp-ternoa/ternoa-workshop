@@ -5,9 +5,8 @@ import { INFTData } from 'interfaces/nft'
 
 import { nftIpfsUpload } from './ipfs'
 
-export const nftsBatchMintingHex = async (data: INFTData) => {
-  const { quantity } = data
-  const { hash: offchainData } = await nftIpfsUpload(data)
+export const nftsBatchMintingHex = async (nftMetadata: INFTData, quantity: string) => {
+  const { hash: offchainData } = await nftIpfsUpload(nftMetadata)
   const nftTx = await createNftTx(offchainData, 0, undefined, false)
   const nftsTxs = new Array(Number(quantity)).fill(nftTx)
   return await batchAllTxHex(nftsTxs)

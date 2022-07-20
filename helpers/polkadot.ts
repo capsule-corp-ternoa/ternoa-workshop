@@ -6,7 +6,7 @@ import { clear, get, USER_POLKADOT_ADDRESS } from './storage'
 
 export const getAccounts = async () => {
   const { web3Accounts, web3Enable } = await import('@polkadot/extension-dapp')
-  const extensions = await web3Enable('ternoa-js-test-dapp')
+  const extensions = await web3Enable('ternoa-workshop')
   if (extensions.length === 0)
     throw new Error(
       'polkadot{.js} extension is not installed.\n\nOtherwise make sure you allowed Ternoa JS Test dApp in the "Manage Website Access" settings of your wallet.'

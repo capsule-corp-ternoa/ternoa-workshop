@@ -3,12 +3,16 @@ import type { AppProps } from 'next/app'
 import { Provider } from 'react-redux'
 import { store } from 'redux/store'
 import { initializeApi } from 'ternoa-js'
+import { ThemeProvider } from '@mui/material/styles'
+import { appTheme } from 'theme'
 
 import Layout from 'components/base/Layout'
 import 'styles/main.scss'
+import Loader from 'components/ui/Loader'
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [isSDKInitialized, setIsSDKInitialized] = useState(false)
+  const [isSDKInitialized, setIsSDKInitialized] = useState<boolean>(false)
+
   useEffect(() => {
     let shouldUpdate = true
     const initSDK = async () => {
@@ -27,14 +31,16 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [])
 
   if (!isSDKInitialized) {
-    return null
+    return <Loader className="loader" size="medium" useLottie />
   }
 
   return (
     <Provider store={store}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <ThemeProvider theme={appTheme}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ThemeProvider>
     </Provider>
   )
 }
