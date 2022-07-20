@@ -36,8 +36,6 @@ const Home: NextPage = () => {
   const handleProgressModalClose = () => {
     setIsNftMintingProgressModalOpen(false)
     setIsNftTransferProgressModalOpen(false)
-    // setNftMintingResponse(RESPONSE_DEFAULT_STATE)
-    // setNftTransferResponse(RESPONSE_DEFAULT_STATE)
   }
   const handleSigningModalClose = () => {
     setIsNftMintingSigningModalOpen(false)
@@ -46,7 +44,7 @@ const Home: NextPage = () => {
     setUnsignedNftTransferTx(undefined)
   }
   const handleNftTransfer = async () => {
-    const batchNftTransferTxHex = await nftsBatchTransferHex(nftIds, ADDRESSES) //TODO: improve typing
+    const batchNftTransferTxHex = await nftsBatchTransferHex(nftIds, ADDRESSES)
     setUnsignedNftTransferTx(batchNftTransferTxHex)
     setIsNftTransferSigningModalOpen(true)
   }
