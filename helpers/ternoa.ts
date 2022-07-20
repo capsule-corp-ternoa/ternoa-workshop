@@ -14,7 +14,7 @@ export const nftsBatchMintingHex = async (nftMetadata: INFTData, quantity: strin
 
 export const nftsBatchTransferHex = async (nftIds: number[], addresses: string[]) => {
   if (nftIds.length < addresses.length) throw new Error('Not enough NFTs for all participants')
-  const nftTransferTxs = await Promise.all(nftIds.map(async (nftId, idx) => await transferNftTx(nftId, addresses[idx])))
+  const nftTransferTxs = await Promise.all(addresses.map(async (address, idx) => await transferNftTx(nftIds[idx], address)))
   return await batchAllTxHex(nftTransferTxs)
 }
 

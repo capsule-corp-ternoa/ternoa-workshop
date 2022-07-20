@@ -13,7 +13,7 @@ import { nftsBatchTransferHex } from 'helpers/ternoa'
 import { INFTData, INFTMetadata } from 'interfaces/nft'
 import { IPFS_GATEWAY } from 'helpers/ipfs'
 
-const ADDRESSES: string[] = ['5C5U1zoKAytwirg2XD2cUDXrAShyQ4dyx5QkPf7ChWQAykLR']
+const ADDRESSES: string[] = ['5C5U1zoKAytwirg2XD2cUDXrAShyQ4dyx5QkPf7ChWQAykLR', '5HazBqWViiKydsQTXLVKHcQXLHebabxBkksgqgPk9ZvL7QKB']
 const defaultNFTData = {
   description: '',
   file: null,
@@ -36,8 +36,8 @@ const Home: NextPage = () => {
   const handleProgressModalClose = () => {
     setIsNftMintingProgressModalOpen(false)
     setIsNftTransferProgressModalOpen(false)
-    setNftMintingResponse(RESPONSE_DEFAULT_STATE)
-    setNftTransferResponse(RESPONSE_DEFAULT_STATE)
+    // setNftMintingResponse(RESPONSE_DEFAULT_STATE)
+    // setNftTransferResponse(RESPONSE_DEFAULT_STATE)
   }
   const handleSigningModalClose = () => {
     setIsNftMintingSigningModalOpen(false)
@@ -57,12 +57,13 @@ const Home: NextPage = () => {
   }
 
   const nftMintingSubmittableCallback = async (res: ISubmittableResult) => {
+    console.log('minting...')
     handleSigningModalClose()
-    setIsNftMintingProgressModalOpen(true)
+    if (!res.isInBlock && !res.isFinalized) setIsNftMintingProgressModalOpen(true)
     try {
       const api = getRawApi()
       try {
-        if (res.isInBlock) {
+        if (res.isInBlock && !res.isFinalized) {
           const txHash = res.txHash
           const { block } = await api.rpc.chain.getBlock(res.status.asInBlock)
           const blockNumber = block.header.number.toNumber()
@@ -116,11 +117,11 @@ const Home: NextPage = () => {
   const nftTransferSubmittableCallback = async (res: ISubmittableResult) => {
     console.log('transfering...')
     handleSigningModalClose()
-    setIsNftTransferProgressModalOpen(true)
+    if (!res.isInBlock && !res.isFinalized) setIsNftTransferProgressModalOpen(true)
     try {
       const api = getRawApi()
       try {
-        if (res.isInBlock) {
+        if (res.isInBlock && !res.isFinalized) {
           const txHash = res.txHash
           const { block } = await api.rpc.chain.getBlock(res.status.asInBlock)
           const blockNumber = block.header.number.toNumber()
