@@ -15,6 +15,7 @@ export interface ProgressModalNftMintingProps {
   handleClose: () => void
   isOpen: boolean
   nftData: INFTData
+  quantity: number
   response: IResponse
 }
 
@@ -24,7 +25,7 @@ const getTxExplorerLink = (wssEndpoint: string, suffix: string) => {
   return `https://${subdomain}ternoa${extension}${suffix}`
 }
 
-const ProgressModalNftMinting = ({ handleClose, isOpen, nftData, response }: ProgressModalNftMintingProps) => {
+const ProgressModalNftMinting = ({ handleClose, isOpen, nftData, response, quantity }: ProgressModalNftMintingProps) => {
   const { app } = useAppSelector((state) => state.app)
   const { wssEndpoint } = app
   const { body, status, txHash, txLinkSuffix } = response
@@ -48,7 +49,7 @@ const ProgressModalNftMinting = ({ handleClose, isOpen, nftData, response }: Pro
         )}
         {status === TransactionLifeCycleStatus.TX_SUCCESS && (
           <>
-            <div className={styles.status}>NFTs successfully minted</div>
+            <div className={styles.status}>{`${quantity} NFTs successfully minted`}</div>
             {nftFile && (
               <div className={styles.nftFileContainer}>
                 <img alt="nft" className={styles.nftFile} src={URL.createObjectURL(nftFile)} />
