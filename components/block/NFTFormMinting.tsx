@@ -8,6 +8,7 @@ import TextField from '@mui/material/TextField'
 import { nftsBatchMintingHex } from 'helpers/ternoa'
 
 import styles from './NFTFormMinting.module.scss'
+import { Box } from '@mui/material'
 
 interface Props {
   signableCallback: (txHashHex: `0x${string}`) => void
@@ -42,9 +43,47 @@ const NFTFormMinting = ({ signableCallback }: Props) => {
     <>
       <h1 className={styles.header}>Start to create your NFT</h1>
       <form onSubmit={formik.handleSubmit} className={styles.formWrapper}>
-        <h2 className={styles.title}>Upload your image here:</h2>
         <div className={styles.uploader}>
-          <FileUploader handleChange={handleFileChange} name="file" onTypeError={(err: any) => console.log(err)} onSizeError={(err: any) => console.log(err)} />
+          {!formik.values.file ? (
+            <>
+              <h2 className={styles.title}>Upload your image here:</h2>
+              <FileUploader
+                handleChange={handleFileChange}
+                name="file"
+                onTypeError={(err: any) => console.log(err)}
+                onSizeError={(err: any) => console.log(err)}
+              />
+            </>
+          ) : (
+            <>
+              <h2 className={styles.title}>View your image here:</h2>
+              <Box
+                onClick={() => handleFileChange(null)}
+                sx={{
+                  margin: '0 auto',
+                  borderRadius: '1.2rem',
+                  height: '30.4rem',
+                  width: '19rem',
+                  overflow: 'hidden',
+                  position: 'relative',
+                }}
+              >
+                <Box>
+                  <img
+                    src={URL.createObjectURL(formik.values.file)}
+                    alt="NFT Media"
+                    style={{
+                      objectFit: 'cover',
+                      position: 'absolute',
+                      width: '100%',
+                      height: '100%',
+                      borderRadius: '1.2rem',
+                    }}
+                  />
+                </Box>
+              </Box>
+            </>
+          )}
         </div>
         <h2 className={styles.title}>Add your metadatas:</h2>
         <div className={styles.inputWrapper}>
