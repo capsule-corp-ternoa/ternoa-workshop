@@ -9,7 +9,6 @@ import { getRawApi, isTransactionSuccess } from 'ternoa-js'
 import { IExtrinsic, IResponse, RESPONSE_DEFAULT_STATE, TransactionLifeCycleStatus } from 'interfaces'
 import NFTFormMinting from 'components/block/NFTFormMinting'
 import { nftsBatchTransferHex } from 'helpers/ternoa'
-import Loader from 'components/ui/Loader'
 
 const ADDRESSES: string[] = []
 
