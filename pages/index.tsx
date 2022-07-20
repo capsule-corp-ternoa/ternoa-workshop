@@ -13,7 +13,7 @@ import { nftsBatchTransferHex } from 'helpers/ternoa'
 import { INFTData, INFTMetadata } from 'interfaces/nft'
 import { IPFS_GATEWAY } from 'helpers/ipfs'
 
-const ADDRESSES: string[] = ['5GguNdS1T2J9BDFMqPhdPp8vtQxfhGJjiGwAaYF7TPLuiJPs']
+const ADDRESSES: string[] = ['5DfX41FBRpdMC2C229XcAUdTQDj7bBvvtJTSNYrwmcwnwRTD']
 const defaultNFTData = {
   description: '',
   file: null,
@@ -55,7 +55,6 @@ const Home: NextPage = () => {
   }
 
   const nftMintingSubmittableCallback = async (res: ISubmittableResult) => {
-    console.log('minting...')
     handleSigningModalClose()
     if (!res.isInBlock && !res.isFinalized) setIsNftMintingProgressModalOpen(true)
     try {

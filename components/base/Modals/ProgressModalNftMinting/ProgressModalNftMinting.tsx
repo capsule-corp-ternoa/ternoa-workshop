@@ -49,7 +49,7 @@ const ProgressModalNftMinting = ({ handleClose, isOpen, nftData, response, quant
         )}
         {status === TransactionLifeCycleStatus.TX_SUCCESS && (
           <>
-            <div className={styles.status}>{`${quantity} NFTs successfully minted`}</div>
+            <div className={styles.status}>{`${quantity} NFT successfully minted`}</div>
             {nftFile && (
               <div className={styles.nftFileContainer}>
                 <img alt="nft" className={styles.nftFile} src={URL.createObjectURL(nftFile)} />
