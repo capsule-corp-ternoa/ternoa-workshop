@@ -49,15 +49,17 @@ export const nftIpfsUpload = async (data: INFTData) => {
   if (file === null) throw new Error('File cannot be null on ipfs upload')
   const { hash: fileHash } = await uploadFiles(file)
   const nftMetadata = {
+    title,
     description,
     image: fileHash,
-    media: {
-      hash: fileHash,
-      name: file?.name,
-      size: file?.size,
-      type: file?.type,
+    properties: {
+      media: {
+        hash: fileHash,
+        name: file?.name,
+        size: file?.size,
+        type: file?.type,
+      },
     },
-    title,
   }
   const finalBlob = new Blob([JSON.stringify(nftMetadata)], { type: 'application/json' })
   const finalFile = new File([finalBlob], 'nft metadata')

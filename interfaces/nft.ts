@@ -7,11 +7,14 @@ export interface INFTData {
 export interface INFTMetadata {
   description: string
   image: string
-  media: {
-    hash: string
-    name: string
-    size: string
-    type: string
+  properties: {
+    media: {
+      hash: string
+      name: string
+      size: string
+      type: string
+    }
   }
+
   title: string
 }

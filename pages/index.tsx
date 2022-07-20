@@ -74,11 +74,11 @@ const Home: NextPage = () => {
           const resNftMetadata = await fetch(`${IPFS_GATEWAY}/ipfs/${offchainData}`)
           if (!resNftMetadata) throw new Error('Unable to fetch nft metadata ipfs file')
           const nftMetadata = (await resNftMetadata.json()) as INFTMetadata
-          const { description, image, media, title } = nftMetadata
-          const resNftImageFile = await fetch(`${IPFS_GATEWAY}/ipfs/${image ?? media.hash}`)
+          const { description, image, properties, title } = nftMetadata
+          const resNftImageFile = await fetch(`${IPFS_GATEWAY}/ipfs/${image ?? properties.media.hash}`)
           if (!resNftImageFile) throw new Error('Unable to fetch nft metadata ipfs file')
           const blob = await resNftImageFile.blob()
-          const file = new File([blob], media.name)
+          const file = new File([blob], properties.media.name)
           const nftData = new FormData()
           nftData.append('description', description)
           nftData.append('file', file)
