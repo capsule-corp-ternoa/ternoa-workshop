@@ -26,7 +26,13 @@
   }
 
   .uploader {
-    margin: 1.2rem auto;
+    label {
+      margin: 1.2rem auto;
+      min-width: 250px;
+    }
+    @include md {
+      min-width: 650px;
+    }
   }
 
   .inputWrapper {
