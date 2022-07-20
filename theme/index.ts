@@ -4,4 +4,7 @@ export const appTheme = createTheme({
   palette: {
     mode: 'dark',
   },
+  typography: {
+    fontFamily: 'Airbnb Cereal App Book',
+  },
 })
