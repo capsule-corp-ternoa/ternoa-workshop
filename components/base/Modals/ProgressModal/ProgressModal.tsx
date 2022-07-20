@@ -47,7 +47,7 @@ const ProgressModal = ({ handleClose, isOpen, response }: ProgressModalProps) =>
         {status === TransactionLifeCycleStatus.TX_SUCCESS && (
           <>
             <Coin className={styles.coinIcon} />
-            <div className={styles.status}>NFTs successfully transfered</div>
+            <div className={styles.status}>NFTs successfully transferred</div>
           </>
         )}
         {txHash && (

@@ -17,7 +17,7 @@ const ADDRESSES: string[] = ['5C5U1zoKAytwirg2XD2cUDXrAShyQ4dyx5QkPf7ChWQAykLR',
 const defaultNFTData = {
   description: '',
   file: null,
-  quantity: 1,
+  quantity: '1',
   title: '',
 }
 
@@ -177,7 +177,13 @@ const Home: NextPage = () => {
         />
       )}
       <ProgressModal handleClose={handleProgressModalClose} isOpen={isNftTransferProgressModalOpen} response={nftTransferResponse} />
-      <ProgressModalNftMinting handleClose={handleProgressModalClose} isOpen={isNftMintingProgressModalOpen} response={nftMintingResponse} nftData={nftData} />
+      <ProgressModalNftMinting
+        handleClose={handleProgressModalClose}
+        isOpen={isNftMintingProgressModalOpen}
+        response={nftMintingResponse}
+        nftData={nftData}
+        quantity={nftIds.length}
+      />
     </>
   )
 }
