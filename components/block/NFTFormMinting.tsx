@@ -6,7 +6,6 @@ import { FileUploader } from 'react-drag-drop-files'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import { nftsBatchMintingHex } from 'helpers/ternoa'
-import { INFTData } from 'interfaces/nft'
 
 import styles from './NFTFormMinting.module.scss'
 
@@ -19,12 +18,17 @@ const NFTFormMinting = ({ signableCallback }: Props) => {
     initialValues: {
       description: '',
       file: null,
-      quantity: 1,
+      quantity: '1',
       title: '',
     },
     validateOnMount: true,
-    onSubmit: async (values) => {
-      const createNftTxHex = await nftsBatchMintingHex(values as unknown as INFTData) //TODO: improve typing
+    onSubmit: async ({ description, file, quantity, title }) => {
+      const nftMetadata = {
+        description,
+        file,
+        title,
+      }
+      const createNftTxHex = await nftsBatchMintingHex(nftMetadata, quantity)
       signableCallback(createNftTxHex)
     },
     validationSchema: NFTFormMintingSchema,

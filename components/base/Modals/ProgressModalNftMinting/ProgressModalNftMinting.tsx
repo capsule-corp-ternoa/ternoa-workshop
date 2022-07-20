@@ -1,7 +1,6 @@
 import React from 'react'
 
 import Warning from 'assets/svg/Components/Warning'
-import Coin from 'assets/svg/Components/Coin'
 import ClipboardCopy from 'components/ui/ClipboardCopy'
 import Loader from 'components/ui/Loader'
 import Modal from 'components/ui/Modal'
@@ -9,11 +8,13 @@ import { IResponse, TransactionLifeCycleStatus } from 'interfaces'
 import { useAppSelector } from 'redux/hooks'
 import { middleEllipsis } from 'utils/strings'
 
-import styles from './ProgressModal.module.scss'
+import styles from './ProgressModalNftMinting.module.scss'
+import { INFTData } from 'interfaces/nft'
 
-export interface ProgressModalProps {
+export interface ProgressModalNftMintingProps {
   handleClose: () => void
   isOpen: boolean
+  nftData: INFTData
   response: IResponse
 }
 
@@ -23,10 +24,11 @@ const getTxExplorerLink = (wssEndpoint: string, suffix: string) => {
   return `https://${subdomain}ternoa${extension}${suffix}`
 }
 
-const ProgressModal = ({ handleClose, isOpen, response }: ProgressModalProps) => {
+const ProgressModalNftMinting = ({ handleClose, isOpen, nftData, response }: ProgressModalNftMintingProps) => {
   const { app } = useAppSelector((state) => state.app)
   const { wssEndpoint } = app
   const { body, status, txHash, txLinkSuffix } = response
+  const { description: nftDescription, file: nftFile, title: nftTitle } = nftData
   const txLink = txLinkSuffix && getTxExplorerLink(wssEndpoint, txLinkSuffix)
 
   return (
@@ -46,8 +48,14 @@ const ProgressModal = ({ handleClose, isOpen, response }: ProgressModalProps) =>
         )}
         {status === TransactionLifeCycleStatus.TX_SUCCESS && (
           <>
-            <Coin className={styles.coinIcon} />
-            <div className={styles.status}>NFTs successfully transfered</div>
+            <div className={styles.status}>NFTs successfully minted</div>
+            {nftFile && (
+              <div className={styles.nftFileContainer}>
+                <img alt="nft" className={styles.nftFile} src={URL.createObjectURL(nftFile)} />
+              </div>
+            )}
+            {nftTitle && <div className={styles.nftTitle}>{nftTitle}</div>}
+            {nftDescription && <div className={styles.nftDescription}>{nftDescription}</div>}
           </>
         )}
         {txHash && (
@@ -67,4 +75,4 @@ const ProgressModal = ({ handleClose, isOpen, response }: ProgressModalProps) =>
   )
 }
 
-export default ProgressModal
+export default ProgressModalNftMinting
