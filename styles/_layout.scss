@@ -96,3 +96,24 @@ button {
     max-width: 1440px;
   }
 }
+
+.outterContainer {
+  background: linear-gradient(90deg, rgba(11, 75, 254, 0.1) 0%, rgba(184, 13, 239, 0.1) 99.9%);
+  backdrop-filter: blur(4px);
+  border-radius: 1.6rem;
+  padding: 1.6rem;
+  margin: 0 auto;
+  @include lg {
+    width: 75%;
+  }
+}
+
+.mainContainer {
+  background: $color-invertedContrast;
+  border-radius: 1.6rem;
+  padding: 2.4rem 1.6rem;
+
+  @include lg {
+    padding: 3.2rem 4rem;
+  }
+}

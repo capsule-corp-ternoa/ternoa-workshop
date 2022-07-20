@@ -121,10 +121,14 @@ const Home: NextPage = () => {
     <>
       <main className="container">
         <div className="wrapper">
-          <NFTFormMinting signableCallback={signableNftMintingCallback} />
-          <Button disabled={nftIds.length < 1} onClick={handleNftTransfer} variant="contained">
-            Transfer nfts to participants
-          </Button>
+          <div className="outterContainer">
+            <div className="mainContainer">
+              <NFTFormMinting signableCallback={signableNftMintingCallback} />
+              <Button disabled={nftIds.length < 1} onClick={handleNftTransfer} variant="contained">
+                Transfer nfts to participants
+              </Button>
+            </div>
+          </div>
         </div>
       </main>
       {unsignedNftMintingTx && (
