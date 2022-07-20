@@ -6,5 +6,6 @@ export const appTheme = createTheme({
   },
   typography: {
     fontFamily: 'Airbnb Cereal App Book',
+    htmlFontSize: 10,
   },
 })

@@ -13,7 +13,6 @@ import { runTx, signTx } from 'helpers/ternoa'
 import { DecodedMethodType, MethodType } from 'interfaces'
 import { useAppSelector } from 'redux/hooks'
 import { middleEllipsis } from 'utils/strings'
-import { TxTranslations } from 'utils/txTranslate'
 
 import PolkadotModal from '../PolkadotModal'
 import styles from './SigningModal.module.scss'
@@ -73,7 +72,7 @@ const SigningModal = ({ handleClose, isOpen, submittableCallback, txHashHex }: S
     <>
       <Modal handleClose={handleClose} isClosable isOpen={isOpen}>
         <div className={styles.root}>
-          {method?.section && method?.method && <div className={styles.method}>{`${TxTranslations[method.section][method.method]}`}</div>}
+          {method?.section && method?.method && <div className={styles.method}>Sign your transaction</div>}
           <div className={styles.hash}>
             Tx hash:
             <ClipboardCopy className={styles.txHash} content={txHashHex} placeholder={middleEllipsis(txHashHex)} />

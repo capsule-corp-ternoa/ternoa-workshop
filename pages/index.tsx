@@ -71,23 +71,18 @@ const Home: NextPage = () => {
           const createNftEvents = res.events.filter((x) => x.event.method === 'NFTCreated')
           const nftIds = createNftEvents.map((x) => Number.parseInt(x.event.data[0].toString()))
           const offchainData = String(createNftEvents[0].event.data[2].toHuman()) ?? ''
-          console.log({ nftIds, offchainData })
           const resNftMetadata = await fetch(`${IPFS_GATEWAY}/ipfs/${offchainData}`)
           if (!resNftMetadata) throw new Error('Unable to fetch nft metadata ipfs file')
-          console.log({ resNftMetadata })
           const nftMetadata = (await resNftMetadata.json()) as INFTMetadata
           const { description, image, media, title } = nftMetadata
-          console.log({ description, image, media, title })
           const resNftImageFile = await fetch(`${IPFS_GATEWAY}/ipfs/${image ?? media.hash}`)
           if (!resNftImageFile) throw new Error('Unable to fetch nft metadata ipfs file')
           const blob = await resNftImageFile.blob()
           const file = new File([blob], media.name)
-          console.log({ res, file })
           const nftData = new FormData()
           nftData.append('description', description)
           nftData.append('file', file)
           nftData.append('title', title)
-          console.log({ nftData })
           setNftIds(nftIds)
           setNftData({ description, file, title })
           const isSuccess = isTransactionSuccess(res).success
@@ -115,7 +110,6 @@ const Home: NextPage = () => {
   }
 
   const nftTransferSubmittableCallback = async (res: ISubmittableResult) => {
-    console.log('transfering...')
     handleSigningModalClose()
     if (!res.isInBlock && !res.isFinalized) setIsNftTransferProgressModalOpen(true)
     try {

@@ -13,7 +13,7 @@ export const removeURLSlash = (url: string) => {
   }
 }
 
-export const IPFS_GATEWAY = process.env.NEXT_PUBLIC_IPFS_BASEURL_ALPHANET ? removeURLSlash(process.env.NEXT_PUBLIC_IPFS_BASEURL_ALPHANET) : ''
+export const IPFS_GATEWAY = process.env.NEXT_PUBLIC_IPFS_BASEURL ? removeURLSlash(process.env.NEXT_PUBLIC_IPFS_BASEURL) : ''
 export const IPFS_UPLOAD_URL = IPFS_GATEWAY + '/api/v0'
 
 export const uploadFiles = async (file: File) => {
