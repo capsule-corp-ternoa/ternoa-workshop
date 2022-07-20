@@ -9,6 +9,7 @@ import { nftsBatchMintingHex } from 'helpers/ternoa'
 
 import styles from './NFTFormMinting.module.scss'
 import { Box } from '@mui/material'
+import Loader from 'components/ui/Loader'
 
 interface Props {
   signableCallback: (txHashHex: `0x${string}`) => void
@@ -136,7 +137,14 @@ const NFTFormMinting = ({ signableCallback }: Props) => {
         </div>
         <div className={styles.submitBtn}>
           <Button disabled={formik.isSubmitting || !formik.isValid} type="submit" variant="contained" size="large">
-            Submit
+            {formik.isSubmitting ? (
+              <>
+                <div style={{ paddingRight: '1rem' }}>Uploading </div>
+                <Loader className="loader" size="small" />
+              </>
+            ) : (
+              'Submit'
+            )}
           </Button>
         </div>
       </form>

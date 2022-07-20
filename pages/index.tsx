@@ -13,11 +13,11 @@ import { nftsBatchTransferHex } from 'helpers/ternoa'
 import { INFTData, INFTMetadata } from 'interfaces/nft'
 import { IPFS_GATEWAY } from 'helpers/ipfs'
 
-const ADDRESSES: string[] = ['5C5U1zoKAytwirg2XD2cUDXrAShyQ4dyx5QkPf7ChWQAykLR']
+const ADDRESSES: string[] = ['5Gsj8X3dGSeCNythZ7yGGYcz2QDCtAVF7x6zDf8pj2mTeakH']
 const defaultNFTData = {
   description: '',
   file: null,
-  quantity: 1,
+  quantity: '1',
   title: '',
 }
 
@@ -36,8 +36,6 @@ const Home: NextPage = () => {
   const handleProgressModalClose = () => {
     setIsNftMintingProgressModalOpen(false)
     setIsNftTransferProgressModalOpen(false)
-    setNftMintingResponse(RESPONSE_DEFAULT_STATE)
-    setNftTransferResponse(RESPONSE_DEFAULT_STATE)
   }
   const handleSigningModalClose = () => {
     setIsNftMintingSigningModalOpen(false)
@@ -46,7 +44,7 @@ const Home: NextPage = () => {
     setUnsignedNftTransferTx(undefined)
   }
   const handleNftTransfer = async () => {
-    const batchNftTransferTxHex = await nftsBatchTransferHex(nftIds, ADDRESSES) //TODO: improve typing
+    const batchNftTransferTxHex = await nftsBatchTransferHex(nftIds, ADDRESSES)
     setUnsignedNftTransferTx(batchNftTransferTxHex)
     setIsNftTransferSigningModalOpen(true)
   }
@@ -58,11 +56,11 @@ const Home: NextPage = () => {
 
   const nftMintingSubmittableCallback = async (res: ISubmittableResult) => {
     handleSigningModalClose()
-    setIsNftMintingProgressModalOpen(true)
+    if (!res.isInBlock && !res.isFinalized) setIsNftMintingProgressModalOpen(true)
     try {
       const api = getRawApi()
       try {
-        if (res.isInBlock) {
+        if (res.isInBlock && !res.isFinalized) {
           const txHash = res.txHash
           const { block } = await api.rpc.chain.getBlock(res.status.asInBlock)
           const blockNumber = block.header.number.toNumber()
@@ -70,23 +68,18 @@ const Home: NextPage = () => {
           const createNftEvents = res.events.filter((x) => x.event.method === 'NFTCreated')
           const nftIds = createNftEvents.map((x) => Number.parseInt(x.event.data[0].toString()))
           const offchainData = String(createNftEvents[0].event.data[2].toHuman()) ?? ''
-          console.log({ nftIds, offchainData })
           const resNftMetadata = await fetch(`${IPFS_GATEWAY}/ipfs/${offchainData}`)
           if (!resNftMetadata) throw new Error('Unable to fetch nft metadata ipfs file')
-          console.log({ resNftMetadata })
           const nftMetadata = (await resNftMetadata.json()) as INFTMetadata
-          const { description, image, media, title } = nftMetadata
-          console.log({ description, image, media, title })
-          const resNftImageFile = await fetch(`${IPFS_GATEWAY}/ipfs/${image ?? media.hash}`)
+          const { description, image, properties, title } = nftMetadata
+          const resNftImageFile = await fetch(`${IPFS_GATEWAY}/ipfs/${image ?? properties.media.hash}`)
           if (!resNftImageFile) throw new Error('Unable to fetch nft metadata ipfs file')
           const blob = await resNftImageFile.blob()
-          const file = new File([blob], media.name)
-          console.log({ res, file })
+          const file = new File([blob], properties.media.name)
           const nftData = new FormData()
           nftData.append('description', description)
           nftData.append('file', file)
           nftData.append('title', title)
-          console.log({ nftData })
           setNftIds(nftIds)
           setNftData({ description, file, title })
           const isSuccess = isTransactionSuccess(res).success
@@ -114,13 +107,12 @@ const Home: NextPage = () => {
   }
 
   const nftTransferSubmittableCallback = async (res: ISubmittableResult) => {
-    console.log('transfering...')
     handleSigningModalClose()
-    setIsNftTransferProgressModalOpen(true)
+    if (!res.isInBlock && !res.isFinalized) setIsNftTransferProgressModalOpen(true)
     try {
       const api = getRawApi()
       try {
-        if (res.isInBlock) {
+        if (res.isInBlock && !res.isFinalized) {
           const txHash = res.txHash
           const { block } = await api.rpc.chain.getBlock(res.status.asInBlock)
           const blockNumber = block.header.number.toNumber()
@@ -182,7 +174,13 @@ const Home: NextPage = () => {
         />
       )}
       <ProgressModal handleClose={handleProgressModalClose} isOpen={isNftTransferProgressModalOpen} response={nftTransferResponse} />
-      <ProgressModalNftMinting handleClose={handleProgressModalClose} isOpen={isNftMintingProgressModalOpen} response={nftMintingResponse} nftData={nftData} />
+      <ProgressModalNftMinting
+        handleClose={handleProgressModalClose}
+        isOpen={isNftMintingProgressModalOpen}
+        response={nftMintingResponse}
+        nftData={nftData}
+        quantity={nftIds.length}
+      />
     </>
   )
 }

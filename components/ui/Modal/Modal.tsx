@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+// import { useEffect } from 'react'
 import ClickAwayListener from 'react-click-away-listener'
 import Close from 'assets/svg/Components/Close'
 import styles from './Modal.module.scss'
@@ -11,13 +11,13 @@ interface ModalProps {
   isClosable?: boolean
 }
 const Modal: React.FC<ModalProps> = ({ children, handleClose, isClickAwayCloseAllowed, isClosable, isOpen }) => {
-  useEffect(() => {
-    const body = document.querySelector('body')
-    if (body) {
-      if (isOpen) body.style.overflow = 'hidden'
-      else body.style.overflow = 'auto'
-    }
-  }, [isOpen])
+  // useEffect(() => {
+  //   const body = document.querySelector('body')
+  //   if (body) {
+  //     if (isOpen) body.style.overflow = 'hidden'
+  //     else body.style.overflow = 'auto'
+  //   }
+  // }, [isOpen])
 
   if (!isOpen) {
     return null

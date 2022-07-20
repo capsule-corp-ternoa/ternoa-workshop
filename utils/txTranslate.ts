@@ -3,7 +3,7 @@ enum NFT {
 }
 
 enum Utility {
-  batchAll = 'NFTs minted',
+  batchAll = 'NFT minted',
 }
 
 export const TxTranslations = {
