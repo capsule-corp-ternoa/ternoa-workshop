@@ -1,5 +1,8 @@
 # 🦦 Ternoa Workshop
 
+> ⚠️ This project is archived, it is no longer maintained.
+> If you want to build on Ternoa use our [SDK ternoa-js](https://www.npmjs.com/package/ternoa-js) on Alphanet & Mainnet environements
+
 Welcome,
 
 This workshop will show how easy and fast building an NFT with the Ternoa JS SDK is.
